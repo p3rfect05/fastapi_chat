@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Chat</title>
+    </head>
+    <body>
+        <h1>WebSocket Chat</h1>
+        <h2>Your ID: <span id="ws-id"></span></h2>
+        <form action="" class="message_send_form" onsubmit="sendMessage(event)" >
+            <input type="text" id="messageText" autocomplete="off"/>
+            <button>Send</button>
+        </form>
+        <ul id='messages'>
+        </ul>
+        <script>
+            document.cookie = 'SameSite=None; Secure'
+            var client_id = Number({{ client_id }})
+        </script>
+        <script src="static/js/chat.js">
+        </script>
+    </body>
+</html>

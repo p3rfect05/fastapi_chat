@@ -1,0 +1,48 @@
+
+<body>
+    <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#" style="font-size: 25px">Home</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/chat" style="font-size: 20px">Chats</a>
+              </li>
+            </ul>
+            <div class="auth_methods">
+            </div>
+          </div>
+        </div>
+      </nav>
+</body>
+<script>
+  let auth_div = document.querySelector('.auth_methods');
+  const cur_loc = window.location.href;
+    if(cur_loc.includes('register') || cur_loc.includes('login')){
+      let login_a = document.createElement('a');
+      let reg_a = document.createElement('a');
+
+      login_a.href = "/auth/login";
+      login_a.style.fontSize = '20px';
+      login_a.style.marginRight = '10px';
+      login_a.innerText = 'Login';
+
+      reg_a.href = "/auth/register";
+      reg_a.innerText = 'Register';
+      reg_a.style.fontSize = '20px';
+      reg_a.style.marginRight = '10px';
+      auth_div.appendChild(reg_a);
+      auth_div.appendChild(login_a);
+    }
+    else {
+      let logout_a = document.createElement('a');
+
+      logout_a.href = "/auth/logout";
+      logout_a.style.fontSize = '20px';
+      logout_a.innerText = 'Logout';
+      auth_div.appendChild(logout_a);
+    }
+</script>

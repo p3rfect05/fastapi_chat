@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+    <script src="../static/js/bootstrap.bundle.js"></script>
+    <title>Chats</title>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div style="margin: auto;width: 30%">
+        <h1 style="text-align: center">Your chats:</h1>
+        {% for chat in chats %}
+            <a href="/chat/{{ chat['chat_id'] }}"
+               style="display: block; border: 2px solid lightgrey;border-radius: 10px; text-decoration: none">
+                <span style="margin: 25px">
+                    Chat ID: {{ chat["chat_id"] }}
+                </span>
+                <span style="margin: 25px">
+                    Members: {{ chat["members"] }}
+                </span>
+                <br>
+                <span style="margin: 25px">
+                    Last message: {{ chat["last_msg"] }}
+                </span>
+
+            </a>
+        {% endfor %}
+    </div>
+</body>
+</html>

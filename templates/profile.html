@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/css/profile.css">
+    <script src="../static/js/bootstrap.bundle.js"></script>
+    <script src="../static/js/profile.js"></script>
+    <title>Profile</title>
+</head>
+<body>
+{% include 'navbar.html' %}
+    <div class="profile_div">
+        <h1 style="text-align: center">Profile</h1>
+        <div class="mb-3">
+            <label for="user_email" class="form-label">Email address</label>
+            <p class="form-control" id="user_email" placeholder="name@example.com">{{ user_email }}</p>
+        </div>
+        
+            
+    </div>
+</body>
+</html>

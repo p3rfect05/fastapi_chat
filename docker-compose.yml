@@ -1,0 +1,26 @@
+version: '3.7'
+services:
+  chat:
+    build: .
+    container_name: my_chat
+    volumes:
+      - .:/usr/src/app
+    command:
+      sh -c "alembic upgrade head && gunicorn main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind=0.0.0.0:8000"
+    ports:
+      - "7777:8000"
+    env_file:
+      - '.env'
+    restart: unless-stopped
+    depends_on:
+      - db
+  db:
+    image: postgres
+    restart: unless-stopped
+    env_file:
+      - '.env'
+    container_name: postgresql_db
+    ports:
+      - "5432:5432"
+
+

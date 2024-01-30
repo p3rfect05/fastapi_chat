@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/chat.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+    <script>const client_id = Number('{{ client_id }}')</script>
+    <script src="../static/js/bootstrap.bundle.js"></script>
+    <script src="../static/js/chat.js"></script>
+
+    <title>Chat</title>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div class="message_window">
+        {% for message in messages %}
+            {% if message.user.id == client_id %}
+                <div class="message align-items-center row justify-content-end">
+                    <div class="text_message col-3 text_me">
+                        <span class="message_author">
+                            {{ message.user.email }}
+                        </span>
+                        <span class="message_content">
+                            {{ message.text }}
+
+                        </span>
+
+                        <span class="message_date">
+                            {{ message.time_created.strftime("%Y-%m-%d %H:%M") }}
+                        </span>
+                    </div>
+                    <div class="message_avatar col-1">
+                        <img src="../static/img/4242-kapibara-4.jpg" alt="">
+                    </div>
+
+                </div>
+            {% else %}
+                <div class="message align-items-center row justify-content-start">
+                    <div class="message_avatar col-1">
+                        <img src="../static/img/4242-kapibara-4.jpg" alt="">
+                    </div>
+                    <div class="text_message col-3 text_friend">
+                        <span class="message_author">
+                            {{ message.user.email }}
+                        </span>
+                        <span class="message_content">
+                            {{ message.text }}
+
+                        </span>
+
+                        <span class="message_date">
+                            {{ message.time_created.strftime("%Y-%m-%d %H:%M") }}
+                        </span>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %} 
+        
+    </div> 
+    <hr style="width: 95%; margin:auto">
+    <div class="send_message_container" >
+        <form action="" onsubmit="sendMessage(event)" class="message_send_form input-group mb-3" >
+            <textarea class="form-control" aria-label="With textarea" id="messageText" 
+            style="resize: none" placeholder="Type message..."></textarea>
+            <button class="btn btn-outline-secondary send_message_button" type="submit" id="button-addon2">
+                <img src="../static/svg/paper-air-plane-airplane-send-message-svgrepo-com.svg" 
+                height="30px" width="30px" alt="">
+            </button>
+
+        </form>
+    </div>
+    
+</body>
+
+</html>
