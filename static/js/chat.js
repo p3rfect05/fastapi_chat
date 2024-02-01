@@ -14,7 +14,7 @@ async function sendMessage(event) {
 
 
 
-var ws = new WebSocket(`ws://localhost:8000/chat/ws/${client_id}`);
+var ws = new WebSocket(`ws://localhost:7777/chat/ws/${client_id}`);
 
  ws.onmessage = function(event) {
     console.log('ws message', JSON.parse(event.data));

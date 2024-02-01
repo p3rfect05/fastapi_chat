@@ -10,6 +10,7 @@ from starlette.requests import Request
 from starlette.responses import Response, RedirectResponse
 
 from starlette.staticfiles import StaticFiles
+from starlette.templating import Jinja2Templates
 
 from auth.token import get_token, get_current_user, validate_token
 from chat.models import User, Message
@@ -19,7 +20,6 @@ from config import SECRET_KEY, HS_ALGORITHM
 from database import engine
 
 app = FastAPI()
-
 
 app.include_router(chat_router)
 app.include_router(auth_router)
@@ -51,23 +51,13 @@ app.add_middleware(
                    "Access-Control-Allow-Origin",
                    "Authorization"],
 )
-# )
-# @app.options("/{rest_of_path:path}") # do not touch the function
-# async def preflight_handler(request: Request, rest_of_path: str) -> Response:
-#     """
-#     Handles CORS preflight requests.
-#     """
-#     response = Response()
-#     response.headers["Access-Control-Allow-Origin"] = "http://127.0.0.1:8000"
-#     response.headers["Access-Control-Allow-Methods"] = "POST"
-#     response.headers["Access-Control-Allow-Headers"] = "Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization"
-#     response.headers["Access-Control-Allow-Credentials"] = "true"
-#     return response
+
+templates = Jinja2Templates(directory="templates")
 
 @app.middleware("http")
 async def check_auth(request: Request, call_next):
     path: str = request.scope['path']
-    #print(path)
+    print(request.method, path)
     for route in reserved_routes:
         if route in path:
             response = await call_next(request)
@@ -96,6 +86,11 @@ async def check_auth(request: Request, call_next):
 
         return response
 
+
+@app.exception_handler(404)
+async def not_found_exception_handler(request: Request, _):
+    print(request.scope['path'], '404 not found')
+    return templates.TemplateResponse(request, '404_response.html')
 
 
 

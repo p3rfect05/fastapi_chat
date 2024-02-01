@@ -59,14 +59,11 @@ async def get_chats(request: Request, user: User = Depends(get_current_user)):
             query = select(Chat).filter_by(id=chat.chat_id)
             messages = (await session.execute(query)).scalar().messages
             members = len((await session.execute(query)).scalar().users)
-            #messages = chat.messages
-            #print(messages)
             if messages:
-                #print(messages[-1])
                 chat_info.append({'last_msg' : messages[-1].text, 'chat_id': chat.chat_id, 'members': members})
             else:
                 chat_info.append({'last_msg' : '', 'chat_id': chat.chat_id, 'members' : members})
-        print(chat_info)
+
 
         return templates.TemplateResponse(request=request, name='chat_list.html', context={'chats': chat_info})
 
@@ -74,13 +71,23 @@ async def get_chats(request: Request, user: User = Depends(get_current_user)):
 async def get_profile(request: Request, user: User = Depends(get_current_user)):
     return templates.TemplateResponse(request=request, name='profile.html', context={'user_email': user.email})
 
+@router.post('/create_chat')
+async def create_chat(user: User = Depends(get_current_user)) -> dict:
+    new_chat_uuid = str(uuid4())
+    async with async_sessionmaker() as session:
+        new_chat = await ChatDAO.add(id=new_chat_uuid)
+        new_chat.users.append(user)
+        session.add(new_chat)
+        await session.commit()
+        return {'chat_id': new_chat.id}
+
 
 @router.get("/{chat_id}")
-async def show_chat(chat_id: uuid.UUID, request: Request, user: User = Depends(get_current_user)):
+async def show_chat(chat_id: str, request: Request, user: User = Depends(get_current_user)):
     chat = await ChatDAO.find_one_or_none(id=chat_id)
-    print(chat)
     if not chat:
-        return Response(status_code=status.HTTP_404_NOT_FOUND)
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
+        #return Response(status_code=status.HTTP_404_NOT_FOUND)
 
     for user_chat in user.chats:
         if user_chat.id == chat_id:
@@ -92,7 +99,7 @@ async def show_chat(chat_id: uuid.UUID, request: Request, user: User = Depends(g
             await session.commit()
     messages = await MessageDAO.find_all(chat_id=chat_id)
 
-    return templates.TemplateResponse(request=request, name='message_template.html', 
+    return templates.TemplateResponse(request=request, name='message_template.html',
                                       context={'client_id' : user.id,
                                                'messages' : messages
                                                })
@@ -104,14 +111,7 @@ async def show_chat(chat_id: uuid.UUID, request: Request, user: User = Depends(g
 # async def send_message(chat_id: str, message: SMessage, user: User = Depends(get_current_user)):
 #     await MessageDAO.add(text=message.text, user_id=user.id, chat_id=chat_id)
 
-@router.post('/create_chat')
-async def create_chat(user: User = Depends(get_current_user)):
-    new_chat_uuid = uuid4()
-    async with async_sessionmaker() as session:
-        new_chat = (await ChatDAO.add(id=new_chat_uuid)).scalar_one_or_none()
-        new_chat.users.append(user)
-        session.add(new_chat)
-        await session.commit()
+
 
 @router.websocket("/ws/{client_id}")
 async def websocket_endpoint(websocket: WebSocket, client_id: str):

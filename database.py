@@ -7,7 +7,7 @@ DATABASE_URL = f'postgresql+asyncpg://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{DB_HO
 
 engine = create_async_engine(DATABASE_URL)
 
-
+print('engine created')
 async_sessionmaker = async_sessionmaker(
     engine, class_=AsyncSession, expire_on_commit=False
 )

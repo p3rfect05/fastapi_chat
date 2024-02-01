@@ -10,8 +10,12 @@
     {% include 'navbar.html' %}
     <div style="margin: auto;width: 30%">
         <h1 style="text-align: center">Your chats:</h1>
+        <div style="text-align: center">
+            <button type="button" class="btn btn-success btn-lg" style="width: 60%" onclick="CreateChat(event)">New Chat</button>
+        </div>
+        <br>
         {% for chat in chats %}
-            <a href="/chat/{{ chat['chat_id'] }}"
+            <a href="/chat/{{ chat['chat_id'] }}" class="chat_link"
                style="display: block; border: 2px solid lightgrey;border-radius: 10px; text-decoration: none">
                 <span style="margin: 25px">
                     Chat ID: {{ chat["chat_id"] }}
@@ -20,12 +24,34 @@
                     Members: {{ chat["members"] }}
                 </span>
                 <br>
-                <span style="margin: 25px">
+                <span style="margin: 25px" class="last_msg">
                     Last message: {{ chat["last_msg"] }}
                 </span>
 
             </a>
+            <br>
         {% endfor %}
     </div>
 </body>
+<script>
+    let last_msg = document.querySelectorAll('.last_msg');
+    for(let i = 0;i < last_msg.length;i++) {
+        if (last_msg[i].textContent.length > 60) {
+            last_msg[i].textContent = last_msg[i].textContent.slice(0, 60) + '...';
+        }
+    }
+    async function CreateChat(event) {
+        fetch('http://localhost:7777/chat/create_chat', {
+                method: 'POST',
+            }
+        ).then(async response => {
+            if (response.status === 200) {
+                //let resp = JSON.parse(response.json());
+                let resp = await response.json()
+                window.location.replace(`/chat/${resp["chat_id"]}`);
+            }
+        })
+    }
+
+</script>
 </html>
