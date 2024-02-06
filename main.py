@@ -41,6 +41,7 @@ admin.add_view(MessageAdmin)
 origins = [
 
     "http://localhost",
+    "https://youchat-ve8x.onrender.com",
 ]
 app.add_middleware(
     CORSMiddleware,
