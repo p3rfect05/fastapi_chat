@@ -30,12 +30,14 @@
 
       login_a.href = "/auth/login";
       login_a.style.fontSize = '20px';
+      login_a.style.textDecoration = 'none';
       login_a.style.marginRight = '10px';
       login_a.innerText = 'Login';
 
       reg_a.href = "/auth/register";
       reg_a.innerText = 'Register';
       reg_a.style.fontSize = '20px';
+      reg_a.style.textDecoration = 'none';
       reg_a.style.marginRight = '10px';
       auth_div.appendChild(reg_a);
       auth_div.appendChild(login_a);
@@ -46,6 +48,7 @@
       logout_a.href = "/auth/logout";
       logout_a.style.fontSize = '20px';
       logout_a.innerText = 'Logout';
+      logout_a.style.textDecoration = 'none';
       auth_div.appendChild(logout_a);
     }
 </script>

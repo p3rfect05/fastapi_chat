@@ -1,0 +1,14 @@
+SECRET_KEY=3HFRBN7BWboOvR05WBCo6PhomOE6kfXboBFmZtF1WFw=
+HS_ALGORITHM=HS256
+
+DB_HOST=dpg-cn13grmn7f5s73fd9620-a
+DB_PORT=5432
+POSTGRES_USER=sasha
+POSTGRES_DB=chat_db_rrl5
+POSTGRES_PASSWORD=TC0iQtWzbYf62RXGeX1bHmDmJaBqiGdJ
+
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=465
+SMTP_USER=lore5of7me@gmail.com
+SMTP_PASS='lxjk odit lnrj wiej'
+SMTP_REPRESENTER='chat-noreply@mail.ru'

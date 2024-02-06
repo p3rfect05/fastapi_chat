@@ -41,8 +41,9 @@ async function registerUser(event) {
   );
 };
     if(!validateEmail(user_email.value)) {
-        if (!document.querySelector('.invalid_email'))
+        if (!document.querySelector('.invalid_email')) {
             createError('invalid_email', 'Invalid email')
+        }
         return;
     }
     if(!validatePassword(user_password.value)) {
@@ -51,7 +52,7 @@ async function registerUser(event) {
         return;
     }
 
-    await fetch('http://localhost:7777/auth/register', {
+    await fetch('http://youchat-ve8x.onrender.com/auth/register', {
         method: 'POST',
         body: JSON.stringify({'email' : user_email.value, 'password' : user_password.value}),
         headers: {
@@ -82,7 +83,7 @@ async function loginUser(event) {
     event.preventDefault()
     let user_email = document.getElementById('user_email');
     let user_password = document.getElementById('user_reg_password')
-    await fetch('http://localhost:7777/auth/login', {
+    await fetch('http://youchat-ve8x.onrender.com/auth/login', {
         method: 'POST',
         body: JSON.stringify({'email' : user_email.value, 'password' : user_password.value}),
         headers: {

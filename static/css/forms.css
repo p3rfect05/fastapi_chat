@@ -6,3 +6,7 @@
     border-radius: 30px;
 }
 
+input[type=email]:hover,  input[type=password]:hover {
+    border: 2px blue solid;
+}
+

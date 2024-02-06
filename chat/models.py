@@ -1,6 +1,6 @@
 import datetime
 
-from sqlalchemy import Column, Integer, String, ForeignKey, TIMESTAMP
+from sqlalchemy import Column, Integer, String, ForeignKey, TIMESTAMP, func
 from sqlalchemy.orm import relationship
 
 from database import Base
@@ -10,7 +10,7 @@ from database import Base
 class Message(Base):
     __tablename__ = 'messages'
     id = Column(Integer, primary_key=True)
-    time_created = Column(TIMESTAMP, default=datetime.datetime.utcnow())
+    time_created = Column(TIMESTAMP, default=func.now())
     text = Column(String, nullable=False)
     user_id = Column(Integer, ForeignKey("users.id"))
     user = relationship("User", back_populates="messages", lazy='selectin')
@@ -50,7 +50,7 @@ class User(Base):
 class Chat(Base):
     __tablename__ = 'chats'
     id = Column(String, primary_key=True)
-    time_created = Column(TIMESTAMP, default=datetime.datetime.utcnow())
+    time_created = Column(TIMESTAMP, default=func.now())
     messages = relationship("Message", back_populates="chat", lazy='selectin')
     users = relationship(
         "User", secondary='users_chats_table', back_populates="chats", lazy='selectin'
