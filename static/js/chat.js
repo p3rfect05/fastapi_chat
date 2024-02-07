@@ -14,7 +14,7 @@ async function sendMessage(event) {
 
 
 
-var ws = new WebSocket(`ws://youchat-ve8x.onrender.com/chat/ws/${client_id}`);
+var ws = new WebSocket(`ws://youchat-s3ly.onrender.com/chat/ws/${client_id}`);
 
  ws.onmessage = function(event) {
     console.log('ws message', JSON.parse(event.data));

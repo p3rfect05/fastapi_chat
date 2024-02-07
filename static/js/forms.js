@@ -52,7 +52,7 @@ async function registerUser(event) {
         return;
     }
 
-    await fetch('http://youchat-ve8x.onrender.com/auth/register', {
+    await fetch('https://youchat-s3ly.onrender.com/auth/register', {
         method: 'POST',
         body: JSON.stringify({'email' : user_email.value, 'password' : user_password.value}),
         headers: {
@@ -83,7 +83,7 @@ async function loginUser(event) {
     event.preventDefault()
     let user_email = document.getElementById('user_email');
     let user_password = document.getElementById('user_reg_password')
-    await fetch('http://youchat-ve8x.onrender.com/auth/login', {
+    await fetch('https://youchat-s3ly.onrender.com/auth/login', {
         method: 'POST',
         body: JSON.stringify({'email' : user_email.value, 'password' : user_password.value}),
         headers: {
