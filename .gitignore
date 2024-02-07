@@ -4,3 +4,4 @@ venv/
 deploy.env
 render.dev
 sol.py
+migrations/versions/*.py
