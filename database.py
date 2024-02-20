@@ -3,9 +3,9 @@ from sqlalchemy.orm import DeclarativeBase
 
 from config import POSTGRES_USER, POSTGRES_DB, POSTGRES_PASSWORD, DB_HOST, DB_PORT
 
-DATABASE_URL = f'postgresql+asyncpg://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{DB_HOST}:{DB_PORT}/{POSTGRES_DB}?ssl=true'
+DATABASE_URL = f'postgresql+asyncpg://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{DB_HOST}:{DB_PORT}/{POSTGRES_DB}?sslmode=disable'
 
-engine = create_async_engine(DATABASE_URL, connect_args = {'sslmode' : 'disable'})
+engine = create_async_engine(DATABASE_URL)
 
 print('engine created')
 async_sessionmaker = async_sessionmaker(
