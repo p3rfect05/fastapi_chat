@@ -5,7 +5,7 @@ from config import POSTGRES_USER, POSTGRES_DB, POSTGRES_PASSWORD, DB_HOST, DB_PO
 
 DATABASE_URL = f'postgresql+asyncpg://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{DB_HOST}:{DB_PORT}/{POSTGRES_DB}'
 
-engine = create_async_engine(DATABASE_URL, connect_args={'ssl': False})
+engine = create_async_engine(DATABASE_URL)
 
 print('engine created')
 async_sessionmaker = async_sessionmaker(
