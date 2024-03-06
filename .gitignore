@@ -3,4 +3,4 @@ venv/
 .env
 deploy.env
 render.dev
-sol.py
+
